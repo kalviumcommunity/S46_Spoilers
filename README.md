@@ -8,4 +8,4 @@ I have no idea of adding any features to my website for now.
 
 #### Deployed Link (Render) :
 
-https://spoilers-1d95.onrender.com/
+https://spoilers.onrender.com
