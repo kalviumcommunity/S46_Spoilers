@@ -8,4 +8,4 @@ I have no idea of adding any features to my website for now.
 
 ### Deployed Link :
 
-https://spoilers.onrender.com/ping
+https://spoilers.onrender.com/
