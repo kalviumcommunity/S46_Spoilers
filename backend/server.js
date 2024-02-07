@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const express = require('express');
 require('dotenv').config()
-const app = express()
+const app = require('./routes')
 
 const startDatabase = async () => {
-    mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true, useUnifiedTopology: true})
+    mongoose.connect(process.env.MONGO_URI)
     .then(()=>{
         console.log('Connected To MongoDB')
     })
     .catch((err)=>{
-        console.log('Connection Interuupted Due To Error',err.message)
+        console.log('Connection Interrupted Due To Error',err.message)
     })
 }
 
