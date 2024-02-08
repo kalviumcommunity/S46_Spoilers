@@ -5,7 +5,38 @@ meta {
 }
 
 get {
-  url: https://spoilers.onrender.com/ping
+  url: https://spoilers.onrender.com/users
   body: none
   auth: none
+}
+
+get {
+  url: https://spoilers.onrender.com/spoilers
+  body: none
+  auth: none
+}
+
+post {
+  url: https://spoilers.onrender.com/spoilers
+  body: json
+  auth: none
+}
+
+body:json {
+  {"activity": "Bullying",
+      "consequences": "Getting Arrested",
+      "spoilRate": 4}
+}
+
+post {
+  url: https://spoilers.onrender.com/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {"userid": "user6",
+      "name": "Dohn Joe",
+      "email": "Dohn@ample.com",
+      "password": "hashed_password_6"}
 }
