@@ -6,6 +6,10 @@ The idea of my project is to build a website which will list out a certain numbe
 
 I have no idea of adding any features to my website for now.
 
-### Deployed Link :
+### Deployed Link  for Back-End :
 
 https://spoilers.onrender.com/
+
+### Deployed Link  for Front-End :
+
+https://spoiler-hof2.onrender.com 
