@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Entity from './Components/Entity'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -9,13 +10,21 @@ function App() {
   return (
     <>
       
-      <header>
-        <h1>SPOILERS</h1>
-      </header>
+      <div className='top'>
+      
+        <header>
+          <h1>SPOILERS</h1>
+        </header>
 
-      <h3>Are you sure you want to spoil your own Life ?</h3>
+        <h3>Are you sure about this ??</h3>
+      
+      </div>
 
-      <h3>Alright then , stay tuned and we'll update this site with so many spoilers you'll never need !</h3>
+      <div className='bottom'>
+        
+        <Entity/>
+      
+      </div>
 
     </>
   )
