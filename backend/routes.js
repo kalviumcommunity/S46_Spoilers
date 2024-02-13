@@ -1,15 +1,22 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors')
 const app = express();
 const { User, Spoiler } = require('./schemas'); // Importing models
 
+app.use(cors())
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
+
 // GET endpoint to fetch all users
-app.use(express.json());
 
 app.get('/users',async(req,res) => {
     try{
         const users = await User.find()
-        res.json(users)
+        res.json(users) 
     } catch(err){
         res.status(500).json({message : err.message})
     }

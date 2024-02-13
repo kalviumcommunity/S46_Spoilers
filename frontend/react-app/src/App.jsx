@@ -15,8 +15,6 @@ function App() {
         <header>
           <h1>SPOILERS</h1>
         </header>
-
-        <h3>Are you sure about this ??</h3>
       
       </div>
 
