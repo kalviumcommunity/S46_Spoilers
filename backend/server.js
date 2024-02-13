@@ -17,7 +17,8 @@ startDatabase()
 
 const isConnected = () => {
     return mongoose.connection.readyState === 1;
-  }
+}
+
 
 app.get('/',(req,res)=>{
     res.json({

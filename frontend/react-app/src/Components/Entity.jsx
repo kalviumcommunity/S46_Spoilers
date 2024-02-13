@@ -1,19 +1,37 @@
 import React from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-const entity = {
-    activity : "Skipping meals",
-    consequences : "Fatigue, weakness, impaired concentration",
-    spoilRate : 5
-}
 
-const Entity = () => {
+function Entity ()  {
+  
+  const [spoilers , setSpoilers] = useState([])
+
+  useEffect(()=> {
+    axios.get('http://localhost:3000/spoilers')
+    .then( (res)=> {setSpoilers(res.data)} )
+    .catch( (err) => {console.log(err)} )
+  },[])
+  
   return (
     <>
-      <div className='container'>
-        <h3>Activity : {entity.activity}</h3>
-        <h3>Consequences ? {entity.consequences}</h3>
-        <h3>Spoil Rate: {entity.spoilRate}</h3>
-      </div>
+      
+      {spoilers && spoilers.map( (spoiler) => {
+        return (
+          <>
+          
+            <div className='card flex-column'>
+
+              <div className='flex row'><h3>Activity :</h3><h4>{spoiler.activity}</h4></div>
+              <div className='flex row'><h3>Consequences :</h3><h4>{spoiler.consequences}</h4></div>
+              <div className='flex row'><h3>Spoil-Rate :</h3><h4>{spoiler.spoilRate}</h4></div>
+
+            </div>
+          
+          </>
+        )
+      })}
+
     </>
   )
 }
