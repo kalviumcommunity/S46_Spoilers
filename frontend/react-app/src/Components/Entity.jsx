@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 function Entity ()  {
@@ -15,6 +16,18 @@ function Entity ()  {
   
   return (
     <>
+
+      <div className='top'>
+
+        <Link to='/'><h4>HOME</h4></Link>
+      
+        <header>
+          <h1>SPOILERS</h1>
+        </header>
+
+        <Link to='/createSpoiler'><h5>Spoil Someone +</h5></Link>
+    
+      </div>
       
       {spoilers && spoilers.map( (spoiler) => {
         return (
@@ -36,4 +49,4 @@ function Entity ()  {
   )
 }
 
-export default Entity
+export default Entity;

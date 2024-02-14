@@ -5,11 +5,7 @@ const app = express();
 const { User, Spoiler } = require('./schemas'); // Importing models
 
 app.use(cors())
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-});
+app.use(express.json())
 
 // GET endpoint to fetch all users
 
@@ -48,15 +44,14 @@ app.get('/spoilers',async(req,res) => {
 
 // POST endpoint to create a new spoiler
 
-app.post('/spoilers',async(req,res) => {
-    const spoiler = new Spoiler(req.body)
-    try{
-        const newSpoiler = await spoiler.save();
-        res.status(201).json(newSpoiler)
-    } catch(err){
-        res.status(400).json({message : err.message})
+app.post('/spoilers', async (req, res) => {
+    try {
+        const newSpoiler = await Spoiler.create(req.body);
+        res.status(201).json(newSpoiler);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
-})
+});
 
 // DELETE endpoint to delete a user by userid
 

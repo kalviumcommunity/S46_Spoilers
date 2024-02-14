@@ -6,8 +6,7 @@
 
 .top{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 25%;
   width: 100%;
@@ -20,19 +19,19 @@
   justify-content: center;
   align-items: center;
   height: 35vh;
-  width: 60%;
+  width: 50vw;
   border: 2px solid rgb(255, 255, 255);
   border-radius: 5px;
+  margin-bottom: 4vh;
 }
 
-.bottom{
-  height: 75%;
+body{
+  height: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  gap: 4vh;
 }
 
 .flex-column{
@@ -50,4 +49,29 @@
 
 .row{
   width: 45vw;
+}
+
+#home{
+  position: fixed;
+  left: 1vw;
+  top: 2vh;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 60vh;
+  width: 35vw;
+  border: 2px solid white;
+  margin-top: 10vh;
+  border-radius: 5px;
+}
+
+form div{
+  width: 20vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
