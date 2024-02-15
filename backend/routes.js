@@ -42,6 +42,17 @@ app.get('/spoilers',async(req,res) => {
     }
 })
 
+app.get('/spoilers/:id',async(req,res)=>{
+    try{
+        const id = req.params.id
+        const spoiler = await Spoiler.findById(id)
+        if (!spoiler){return res.status(404).json({message : "Spoiler not found"})}
+        res.json(spoiler)
+    } catch(err){
+        res.status(500).json({message : err.message})
+    }
+})
+
 // POST endpoint to create a new spoiler
 
 app.post('/spoilers', async (req, res) => {
@@ -103,7 +114,7 @@ app.put('/users/:userid',async(req,res) => {
 app.put('/spoilers/:id',async(req,res) => {
     const {id} = req.params
     try{
-        const updatedSpoiler = await Spoiler.findByIdAndUpdate(id, req.body, {new:true});
+        const updatedSpoiler = await Spoiler.findByIdAndUpdate(id, req.body);
         if(!updatedSpoiler){
             return res.status(404).json({message: 'Spoiler not found'});
         }
