@@ -23,11 +23,11 @@ app.get('/users',async(req,res) => {
 
 app.post('/users',async(req,res) => {
     const {error , value} = joiUser.validate(req.body);
-    const newUser = await User.create(req.body);
     if (error){
         console.log(error);
         return res.send("Invalid Request")
     }
+    const newUser = await User.create(req.body);
     res.send("Success")
 })
 
@@ -63,10 +63,6 @@ app.post('/spoilers', async (req, res) => {
         return res.status(400).send("Invalid Request")
     }
     const newSpoiler = await Spoiler.create(req.body);
-    if (error){
-        console.log(error);
-        return res.status(400).send("Invalid Request")
-    }
     res.status(201).send("Success")
 });
 
@@ -110,12 +106,11 @@ app.put('/users/:userid',async(req,res) => {
             console.log(error);
             return res.status(400).send("Invalid Request")
         }
-        res.status(201).send("Success")
         const updatedUser = await User.findOneAndUpdate({userid}, req.body, {new:true});
         if(!updatedUser){
             return res.status(404).json({message: 'User not found'});
         }
-        res.json(updatedUser)
+        res.status(201).send("Success")
     } catch(err){
         res.status(400).json({message : err.message})
     }
@@ -131,12 +126,11 @@ app.put('/spoilers/:id',async(req,res) => {
             console.log(error);
             return res.status(400).send("Invalid Request")
         }
-        res.status(201).send("Success")
         const updatedSpoiler = await Spoiler.findByIdAndUpdate(id, req.body);
         if(!updatedSpoiler){
             return res.status(404).json({message: 'Spoiler not found'});
         }
-        res.json(updatedSpoiler)
+        res.status(201).send("Success")
     } catch(err){
         res.status(400).json({message : err.message})
     }
