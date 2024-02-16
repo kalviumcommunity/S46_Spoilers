@@ -28,6 +28,8 @@ const CreateSpoiler = () => {
         } catch (err){
             console.log(err);
             setErr(err);
+            setStatus(true);
+            setStatus(false);
         }
     }
   

@@ -35,6 +35,7 @@ const UpdateSpoiler = () => {
         } catch (err){
             console.log(err)
             setErr(err);
+            setStatus(false);
         }
     }
   
