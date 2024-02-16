@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 const { User, Spoiler } = require('./schemas'); // Importing models
+const { joiUser, joiSpoiler } = require('./joiSchemas');
 
 app.use(cors())
 app.use(express.json())
@@ -21,13 +22,13 @@ app.get('/users',async(req,res) => {
 // POST endpoint to create a new user
 
 app.post('/users',async(req,res) => {
-    const user = new User(req.body)
-    try{
-        const newUser = await user.save();
-        res.status(201).json(newUser)
-    } catch(err){
-        res.status(400).json({message : err.message})
+    const {error , value} = joiUser.validate(req.body);
+    const newUser = await User.create(req.body);
+    if (error){
+        console.log(error);
+        return res.send("Invalid Request")
     }
+    res.send("Success")
 })
 
 
@@ -56,12 +57,17 @@ app.get('/spoilers/:id',async(req,res)=>{
 // POST endpoint to create a new spoiler
 
 app.post('/spoilers', async (req, res) => {
-    try {
-        const newSpoiler = await Spoiler.create(req.body);
-        res.status(201).json(newSpoiler);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+    const {error , value} = joiSpoiler.validate(req.body);
+    if (error){
+        console.log(error);
+        return res.status(400).send("Invalid Request")
     }
+    const newSpoiler = await Spoiler.create(req.body);
+    if (error){
+        console.log(error);
+        return res.status(400).send("Invalid Request")
+    }
+    res.status(201).send("Success")
 });
 
 // DELETE endpoint to delete a user by userid
@@ -99,6 +105,12 @@ app.delete('/spoilers/:id',async(req,res) => {
 app.put('/users/:userid',async(req,res) => {
     const {userid} = req.params
     try{
+        const {error , value} = joiUser.validate(req.body);
+        if (error){
+            console.log(error);
+            return res.status(400).send("Invalid Request")
+        }
+        res.status(201).send("Success")
         const updatedUser = await User.findOneAndUpdate({userid}, req.body, {new:true});
         if(!updatedUser){
             return res.status(404).json({message: 'User not found'});
@@ -114,6 +126,12 @@ app.put('/users/:userid',async(req,res) => {
 app.put('/spoilers/:id',async(req,res) => {
     const {id} = req.params
     try{
+        const {error , value} = joiSpoiler.validate(req.body);
+        if (error){
+            console.log(error);
+            return res.status(400).send("Invalid Request")
+        }
+        res.status(201).send("Success")
         const updatedSpoiler = await Spoiler.findByIdAndUpdate(id, req.body);
         if(!updatedSpoiler){
             return res.status(404).json({message: 'Spoiler not found'});

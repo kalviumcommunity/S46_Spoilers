@@ -8,6 +8,7 @@ const CreateSpoiler = () => {
     const [conseq,setConseq] = useState("");
     const [rate,setRate] = useState("");
     const [status,setStatus] = useState(false);
+    const [err,setErr] = useState(null);
 
     const postIt = async(e) => {
         e.preventDefault();
@@ -23,8 +24,10 @@ const CreateSpoiler = () => {
             setConseq("");
             setRate("");
             setStatus(true);
+            setErr(null);
         } catch (err){
-            console.log(err)
+            console.log(err);
+            setErr(err);
         }
     }
   
@@ -55,6 +58,8 @@ const CreateSpoiler = () => {
             <button onClick={postIt}>Add it !</button>
 
             {status && <h3>Added Succesfully !</h3>}
+
+            {err && <h3>{err.response.data}</h3>}
 
         </form>
     </>

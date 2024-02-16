@@ -9,6 +9,7 @@ const UpdateSpoiler = () => {
     const [conseq,setConseq] = useState("");
     const [rate,setRate] = useState("");
     const [status,setStatus] = useState(false);
+    const [err,setErr] = useState(null);
 
     useEffect(()=> {
         axios.get('http://localhost:3000/spoilers/'+id)
@@ -29,9 +30,11 @@ const UpdateSpoiler = () => {
             setActiv("");
             setConseq("");
             setRate("");
+            setErr(null);
             setStatus(true);
         } catch (err){
             console.log(err)
+            setErr(err);
         }
     }
   
@@ -62,6 +65,8 @@ const UpdateSpoiler = () => {
             <button type='submit'>Confirm</button>
 
             {status && <h3>Updated Succesfully !</h3>}
+
+            {err && <h3>{err.response.data}</h3>}
 
         </form>
     </>
