@@ -14,7 +14,7 @@ const CreateSpoiler = () => {
         e.preventDefault();
         
         try{
-            const response = await axios.post('http://localhost:3000/spoilers',{
+            const response = await axios.post('https://spoilers.onrender.com/spoilers',{
                 activity : activ,
                 consequences : conseq,
                 spoilRate : rate
@@ -28,7 +28,6 @@ const CreateSpoiler = () => {
         } catch (err){
             console.log(err);
             setErr(err);
-            setStatus(true);
             setStatus(false);
         }
     }
@@ -36,7 +35,7 @@ const CreateSpoiler = () => {
     return (
     <>
 
-        <Link to='/'><h4 id='home'>Home</h4></Link>
+        <Link to='/main'><h4 id='home'>Home</h4></Link>
 
         <form>
 

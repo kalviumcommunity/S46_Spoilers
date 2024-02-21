@@ -12,7 +12,7 @@ const UpdateSpoiler = () => {
     const [err,setErr] = useState(null);
 
     useEffect(()=> {
-        axios.get('http://localhost:3000/spoilers/'+id)
+        axios.get('https://spoilers.onrender.com/spoilers/'+id)
         .then( (res)=> console.log(res.data))
         .catch( (err) => {console.log(err)} )
       },[])
@@ -21,7 +21,7 @@ const UpdateSpoiler = () => {
         e.preventDefault();
         
         try{
-            const response = await axios.put('http://localhost:3000/spoilers/'+id,{
+            const response = await axios.put('https://spoilers.onrender.com/spoilers/'+id,{
                 activity : activ,
                 consequences : conseq,
                 spoilRate : rate
@@ -42,7 +42,7 @@ const UpdateSpoiler = () => {
     return (
     <>
 
-        <Link to='/'><h4 id='home'>Home</h4></Link>
+        <Link to='/main'><h4 id='home'>Home</h4></Link>
 
         <form onSubmit={updateIt}>
 
