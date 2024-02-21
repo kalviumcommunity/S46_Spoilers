@@ -24,6 +24,7 @@ const SignUp = () => {
             setName("");
             setEmail("");
             setPass("");
+            Cookies.set("Username",name)
             setStatus(true);
             setErr(null);
             setTimeout(() => {
