@@ -19,7 +19,7 @@ app.get('/users',async(req,res) => {
     }
 })
 
-// POST endpoint to create a new user
+// POST endpoint for user sign up
 
 app.post('/users',async(req,res) => {
     const {error , value} = joiUser.validate(req.body);
@@ -31,6 +31,20 @@ app.post('/users',async(req,res) => {
     res.send("Success")
 })
 
+// GET endpoint for user sign-in 
+
+app.post('/users/signin',async(req,res) => {
+    const {name , password} = req.body;
+    const user = await User.findOne({name});
+    if (!user){
+        return res.status(401).send("Wrong Username")
+    }
+    const passwordValid = await user.comparePassword(password);
+    if (!passwordValid){
+        return res.status(401).send("Wrong Password")
+    }
+    res.send("Success")
+})
 
 // GET endpoint to fetch all spoilers
 

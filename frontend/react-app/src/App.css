@@ -1,16 +1,20 @@
 *{
+  top: 0;
+  left: 0;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .top{
+  margin-top: 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 25%;
-  width: 100%;
-  margin-bottom: 5vh;
+  height: 4%;
+  width: 98vw;
+  margin-bottom: 4vh;
 }
 
 .card{
@@ -26,7 +30,7 @@
 }
 
 body{
-  height: auto;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -78,4 +82,16 @@ form div{
 
 .buttons{
   width: 15vw;
+}
+
+.loading-bar {
+  height: 5px;
+  background-color: #007bff;
+  animation: loadingAnimation 1.5s linear forwards;
+}
+
+@keyframes loadingAnimation {
+  0% { width: 0; }
+  50% { width: 50%; }
+  100% { width: 100%; }
 }

@@ -8,6 +8,10 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true }
 });
 
+userSchema.methods.comparePassword = function(password) {
+  return this.password === password;
+};
+
 // Schema for the Spoilers collection
 
 const spoilerSchema = new mongoose.Schema({

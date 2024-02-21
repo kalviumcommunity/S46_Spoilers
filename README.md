@@ -4,7 +4,7 @@ The idea of my project is to build a website which will list out a certain numbe
 
 ### Features
 
-I have no idea of adding any features to my website for now.
+Sign-up , Sign-in , Add , Update , Delete.
 
 ### Deployed Link  for Back-End :
 
