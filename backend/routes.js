@@ -1,12 +1,32 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const cors = require('cors')
 const app = express();
-const { User, Spoiler } = require('./schemas'); // Importing models
+const { User, Spoiler } = require('./schemas');
 const { joiUser, joiSpoiler } = require('./joiSchemas');
 
 app.use(cors())
 app.use(express.json())
+
+const generateToken = (payload) => {
+    return jwt.sign(payload, "Kaizoku-0nii-0rewaaNaaru", { expiresIn: '1h' });
+}
+
+const authenticate = (req, res, next) => {
+    const token = req.headers.authorization;
+    if (!token || !token.startsWith('Bearer ')) {
+        return res.status(401).send('Unauthorized: No token provided');
+    }
+    const authToken = token.split('Bearer ')[1];
+    try {
+        const decoded = jwt.verify(authToken, "Kaizoku-0nii-0rewaaNaaru");
+        req.user = decoded
+        next()
+    } catch (error) {
+        return res.status(403).send('Forbidden: Invalid token');
+    }
+}
 
 // GET endpoint to fetch all users
 
@@ -31,7 +51,7 @@ app.post('/users',async(req,res) => {
     res.send("Success")
 })
 
-// GET endpoint for user sign-in 
+// POST endpoint for user sign-in 
 
 app.post('/users/signin',async(req,res) => {
     const {name , password} = req.body;
@@ -43,12 +63,13 @@ app.post('/users/signin',async(req,res) => {
     if (!passwordValid){
         return res.status(401).send("Wrong Password")
     }
-    res.send("Success")
+    const token = generateToken({name:user.name});
+    res.json({token});
 })
 
 // GET endpoint to fetch all spoilers
 
-app.get('/spoilers',async(req,res) => {
+app.get('/spoilers',authenticate,async(req,res) => {
     try{
         const spoilers = await Spoiler.find()
         res.json(spoilers)

@@ -21,7 +21,8 @@ const SignIn = () => {
             });
             setName("");
             setPass("");
-            Cookies.set("Username",name)
+            Cookies.set("Username",name);
+            Cookies.set("Token",response.data.token);
             setStatus(true);
             setErr(null);
             setTimeout(() => {
