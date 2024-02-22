@@ -48,7 +48,8 @@ app.post('/users',async(req,res) => {
         return res.send("Invalid Request")
     }
     const newUser = await User.create(req.body);
-    res.send("Success")
+    const token = generateToken({password: newUser.password});
+    res.json({token});
 })
 
 // POST endpoint for user sign-in 
@@ -57,13 +58,13 @@ app.post('/users/signin',async(req,res) => {
     const {name , password} = req.body;
     const user = await User.findOne({name});
     if (!user){
-        return res.status(401).send("Wrong Username")
+        return res.status(401).send("Username Not Found")
     }
     const passwordValid = await user.comparePassword(password);
     if (!passwordValid){
         return res.status(401).send("Wrong Password")
     }
-    const token = generateToken({name:user.name});
+    const token = generateToken({password: user.password});
     res.json({token});
 })
 

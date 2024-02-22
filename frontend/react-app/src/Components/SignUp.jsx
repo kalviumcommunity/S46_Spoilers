@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const SignUp = () => {
 
@@ -37,6 +38,7 @@ const SignUp = () => {
         setEmail("");
         setPass("");
         Cookies.set("Username", name);
+        Cookies.set("Token",response.data.token);
         setStatus(true);
         setErr(null);
         setTimeout(() => {
