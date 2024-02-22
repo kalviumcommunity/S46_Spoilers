@@ -14,29 +14,39 @@ const SignUp = () => {
     const postIt = async(e) => {
         e.preventDefault();
         
-        try{
-            const response = await axios.post('https://spoilers.onrender.com/users',{
-                name : name,
-                email : email,
-                password : pass
-            });
-            console.log("Posted Succesfully",response.data)
-            setName("");
-            setEmail("");
-            setPass("");
-            Cookies.set("Username",name)
-            setStatus(true);
-            setErr(null);
-            setTimeout(() => {
-              navigate('/main');
-            }, 1500);
-        
-
-          } catch (err){
-            console.log(err);
+        try {
+        const firstResponse = await axios.get('https://spoilers.onrender.com/users');
+        const users = firstResponse.data;
+        const existingUser = users.find(user => user.email === email);
+        if (existingUser) {
             setStatus(false);
-            setErr(err);
-          }
+            setErr({ response: { data: "Account already exists" } });
+            setTimeout(() => {
+                navigate('/');
+            }, 1000);
+        }
+
+        const response = await axios.post('https://spoilers.onrender.com/users', {
+            name: name,
+            email: email,
+            password: pass
+        });
+        console.log("Posted Successfully", response.data);
+        setName("");
+        setEmail("");
+        setPass("");
+        Cookies.set("Username", name);
+        setStatus(true);
+        setErr(null);
+        setTimeout(() => {
+            navigate('/main');
+        }, 1500);
+
+    }   catch (err) {
+        console.log(err);
+        setStatus(false);
+        setErr(err);
+        }
     }
   
     return (
