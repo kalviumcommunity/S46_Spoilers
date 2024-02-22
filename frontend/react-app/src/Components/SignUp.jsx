@@ -23,7 +23,8 @@ const SignUp = () => {
             setErr({ response: { data: "Account already exists" } });
             setTimeout(() => {
                 navigate('/');
-            }, 1000);
+            }, 1000)
+            return;
         }
 
         const response = await axios.post('https://spoilers.onrender.com/users', {
