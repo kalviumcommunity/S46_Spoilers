@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const CreateSpoiler = () => {
 
@@ -9,6 +10,7 @@ const CreateSpoiler = () => {
     const [rate,setRate] = useState("");
     const [status,setStatus] = useState(false);
     const [err,setErr] = useState(null);
+    const navigate = useNavigate();
 
     const postIt = async(e) => {
         e.preventDefault();
@@ -17,7 +19,12 @@ const CreateSpoiler = () => {
             const response = await axios.post('https://spoilers.onrender.com/spoilers',{
                 activity : activ,
                 consequences : conseq,
-                spoilRate : rate
+                spoilRate : rate,
+                author: Cookies.get("Username")
+            },{
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('Token')}`
+                }
             });
             console.log("Posted Succesfully",response.data)
             setActiv("");
@@ -25,6 +32,9 @@ const CreateSpoiler = () => {
             setRate("");
             setStatus(true);
             setErr(null);
+            setTimeout(() => {
+                navigate('/main');
+            }, 1500);
         } catch (err){
             console.log(err);
             setErr(err);
@@ -58,7 +68,7 @@ const CreateSpoiler = () => {
 
             <button onClick={postIt}>Add it !</button>
 
-            {status && <h3>Added Succesfully !</h3>}
+            {status && <div className="loading-bar"></div>}
 
             {err && <h3>{err.response.data}</h3>}
 
@@ -67,4 +77,4 @@ const CreateSpoiler = () => {
   )
 }
 
-export default CreateSpoiler
+export default CreateSpoiler;

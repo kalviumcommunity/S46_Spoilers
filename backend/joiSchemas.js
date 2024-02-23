@@ -9,7 +9,8 @@ const joiUser = joi.object({
 const joiSpoiler = joi.object({
     activity : joi.string().required(),
     consequences : joi.string().required(),
-    spoilRate : joi.number().integer().min(1).max(10).required()
+    spoilRate : joi.number().min(1).max(10).required(),
+    author : joi.string().required()
 })
 
 module.exports = { joiUser, joiSpoiler };

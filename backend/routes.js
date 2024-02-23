@@ -92,7 +92,7 @@ app.get('/spoilers/:id',async(req,res)=>{
 
 // POST endpoint to create a new spoiler
 
-app.post('/spoilers', async (req, res) => {
+app.post('/spoilers',authenticate, async (req, res) => {
     const {error , value} = joiSpoiler.validate(req.body);
     if (error){
         console.log(error);
@@ -154,7 +154,7 @@ app.put('/users/:userid',async(req,res) => {
 
 // PUT endpoint to update a spoiler by _id
 
-app.put('/spoilers/:id',async(req,res) => {
+app.put('/spoilers/:id',authenticate,async(req,res) => {
     const {id} = req.params
     try{
         const {error , value} = joiSpoiler.validate(req.body);

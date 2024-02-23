@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useParams, useNavigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const UpdateSpoiler = () => {
 
@@ -10,6 +11,7 @@ const UpdateSpoiler = () => {
     const [rate,setRate] = useState("");
     const [status,setStatus] = useState(false);
     const [err,setErr] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(()=> {
         axios.get('https://spoilers.onrender.com/spoilers/'+id)
@@ -24,7 +26,12 @@ const UpdateSpoiler = () => {
             const response = await axios.put('https://spoilers.onrender.com/spoilers/'+id,{
                 activity : activ,
                 consequences : conseq,
-                spoilRate : rate
+                spoilRate : rate,
+                author: Cookies.get("Username")
+            },{
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('Token')}`
+                }
             });
             console.log("Updated Succesfully",response.data)
             setActiv("");
@@ -32,6 +39,10 @@ const UpdateSpoiler = () => {
             setRate("");
             setErr(null);
             setStatus(true);
+            setTimeout(() => {
+                navigate('/main');
+            }, 1500);
+        
         } catch (err){
             console.log(err)
             setErr(err);
@@ -65,7 +76,7 @@ const UpdateSpoiler = () => {
 
             <button type='submit'>Confirm</button>
 
-            {status && <h3>Updated Succesfully !</h3>}
+            {status && <div className="loading-bar"></div>}
 
             {err && <h3>{err.response.data}</h3>}
 
