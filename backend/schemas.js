@@ -17,7 +17,8 @@ userSchema.methods.comparePassword = function(password) {
 const spoilerSchema = new mongoose.Schema({
   activity: { type: String, required: true },
   consequences: { type: String, required: true },
-  spoilRate: { type: Number, required: true }
+  spoilRate: { type: Number, required: true },
+  author: { type: String, required: true }
 });
 
 const User = mongoose.model('users', userSchema);

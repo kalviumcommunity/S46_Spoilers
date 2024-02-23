@@ -21,9 +21,9 @@ const SignUp = () => {
         const existingUser = users.find(user => user.email === email);
         if (existingUser) {
             setStatus(false);
-            setErr({ response: { data: "Account already exists" } });
+            setErr({ response: { data: "Account already exists, Go Log in." } });
             setTimeout(() => {
-                navigate('/');
+                navigate('/signin');
             }, 1000)
             return;
         }
