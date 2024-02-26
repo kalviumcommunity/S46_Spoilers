@@ -47,6 +47,11 @@ app.post('/users',async(req,res) => {
         console.log(error);
         return res.send("Invalid Request")
     }
+    const {name} = req.body;
+    const user = await User.findOne({name});
+    if (user){
+        return res.status(401).send("This Username is already taken.")
+    }
     const newUser = await User.create(req.body);
     const token = generateToken({password: newUser.password});
     res.json({token});
