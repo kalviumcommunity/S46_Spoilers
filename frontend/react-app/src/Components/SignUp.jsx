@@ -18,13 +18,20 @@ const SignUp = () => {
         try {
         const firstResponse = await axios.get('https://spoilers.onrender.com/users');
         const users = firstResponse.data;
-        const existingUser = users.find(user => user.email === email || user.name === name);
+        const existingUser = users.find(user => user.email === email);
         if (existingUser) {
             setStatus(false);
             setErr({ response: { data: "Account already exists, Go Log in." } });
             setTimeout(() => {
                 navigate('/signin');
             }, 1000)
+            return;
+        }
+
+        const existingUserName = users.find(user => user.name === name);
+        if (existingUserName){
+            setStatus(false);
+            setErr({ response : { data : "Username Already Taken" } })
             return;
         }
 
