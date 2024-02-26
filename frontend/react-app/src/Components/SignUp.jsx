@@ -18,7 +18,7 @@ const SignUp = () => {
         try {
         const firstResponse = await axios.get('https://spoilers.onrender.com/users');
         const users = firstResponse.data;
-        const existingUser = users.find(user => user.email === email);
+        const existingUser = users.find(user => user.email === email || user.name === name);
         if (existingUser) {
             setStatus(false);
             setErr({ response: { data: "Account already exists, Go Log in." } });
