@@ -25,7 +25,7 @@ function Entity ()  {
         setErrMessage('Error While Fetching Spoilers');
       }
     } )
-  },[])
+  },[spoilers])
 
   useEffect(()=>{
     axios.get('https://spoilers.onrender.com/users').then((res)=>setUsers(res.data)).catch((er)=>console.log(er));
