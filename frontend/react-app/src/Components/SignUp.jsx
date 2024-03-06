@@ -15,7 +15,6 @@ const SignUp = () => {
     const postIt = async(e) => {
         e.preventDefault();
         
-        try {
         const firstResponse = await axios.get('https://spoilers.onrender.com/users');
         const users = firstResponse.data;
         const existingUser = users.find(user => user.email === email);
@@ -35,6 +34,7 @@ const SignUp = () => {
             return;
         }
 
+        try {
         const response = await axios.post('https://spoilers.onrender.com/users', {
             name: name,
             email: email,
